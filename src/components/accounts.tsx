@@ -29,9 +29,9 @@ const AccountDetail: FC<AccountProps> = ({ account }) => {
     return <List.Item.Detail isLoading={isLoading} />;
   }
 
-  const formattedBalance = formatCurrency(balance.balance);
-  const formattedTotal = formatCurrency(balance.total_balance);
-  const formattedSpend = formatCurrency(Math.abs(balance.spend_today));
+  const formattedBalance = formatCurrency(balance.balance, balance.currency);
+  const formattedTotal = formatCurrency(balance.total_balance, balance.currency);
+  const formattedSpend = formatCurrency(Math.abs(balance.spend_today), balance.currency);
   const ownersTitle = account.owners.length == 1 ? "Owner" : "Owners";
   const ownersValue = account.owners.map((o) => o.preferred_name).join(", ");
 
@@ -51,7 +51,7 @@ const AccountDetail: FC<AccountProps> = ({ account }) => {
               <List.Item.Detail.Metadata.Label title="Local currency" text={balance.local_currency} />
               <List.Item.Detail.Metadata.Label
                 title="Exchange rate"
-                text={formatCurrency(balance.local_exchange_rate)}
+                text={formatCurrency(balance.local_exchange_rate, balance.local_currency)}
               />
             </>
           )}

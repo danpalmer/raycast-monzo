@@ -18,9 +18,11 @@ const PotDetail: FC<PotProps> = ({ pot }) => {
     <List.Item.Detail
       metadata={
         <List.Item.Detail.Metadata>
-          <List.Item.Detail.Metadata.Label title="Balance" text={formatCurrency(pot.balance)} />
+          <List.Item.Detail.Metadata.Label title="Balance" text={formatCurrency(pot.balance, pot.currency)} />
           <List.Item.Detail.Metadata.Separator />
-          {pot.goal_amount && <List.Item.Detail.Metadata.Label title="Goal" text={formatCurrency(pot.goal_amount)} />}
+          {pot.goal_amount && (
+            <List.Item.Detail.Metadata.Label title="Goal" text={formatCurrency(pot.goal_amount, pot.currency)} />
+          )}
           {pot.round_up && <List.Item.Detail.Metadata.Label title="Rounding up into this pot" />}
         </List.Item.Detail.Metadata>
       }
