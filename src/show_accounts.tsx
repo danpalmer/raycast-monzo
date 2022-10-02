@@ -14,7 +14,12 @@ export default function Command() {
     abortable,
   });
   return (
-    <List enableFiltering isLoading={isLoading} searchBarPlaceholder="Search accounts and pots" isShowingDetail>
+    <List
+      enableFiltering
+      isLoading={isLoading}
+      searchBarPlaceholder="Search accounts and pots"
+      isShowingDetail
+    >
       {accountPots?.map(({ account, pots }) => (
         <List.Section key={account.id} title={accountTitle(account)}>
           <AccountItem
@@ -22,7 +27,10 @@ export default function Command() {
             account={account}
             actions={
               <ActionPanel>
-                <Action.Push title="Show transactions" target={<TransactionsList account={account} />} />
+                <Action.Push
+                  title="Show transactions"
+                  target={<TransactionsList account={account} />}
+                />
               </ActionPanel>
             }
           />

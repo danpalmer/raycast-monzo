@@ -12,7 +12,9 @@ export async function getAccounts(): Promise<Monzo.Accounts.Account[]> {
   return accounts.filter((account) => !account.closed);
 }
 
-export async function getBalance(account: Monzo.Accounts.Account): Promise<Monzo.Balance> {
+export async function getBalance(
+  account: Monzo.Accounts.Account
+): Promise<Monzo.Balance> {
   const client = await getClient();
   const balance = await client.getBalance({ accountId: account.id });
   assertValue(balance);
@@ -24,7 +26,9 @@ export async function getPots(): Promise<AccountPots[]> {
   let accounts = await client.getAccounts({});
   assertValue(accounts);
   accounts = accounts.filter((account) => !account.closed);
-  const potsByAccount = await Promise.all(accounts.map((account) => client.getPots({ accountId: account.id })));
+  const potsByAccount = await Promise.all(
+    accounts.map((account) => client.getPots({ accountId: account.id }))
+  );
   return potsByAccount.map((pots, idx) => {
     pots = pots.filter((pot) => !pot.deleted);
     return { pots, account: accounts[idx] };
@@ -42,7 +46,6 @@ export async function getTransactions(
     expand: ["merchant"],
     since: since.toISOString(),
   });
-  console.log(transactions);
   assertValue(transactions);
   return transactions.reverse();
 }
@@ -52,9 +55,18 @@ interface AccountPots {
   pots: Monzo.Pot[];
 }
 
-function assertValue(value: any) {
+function assertValue(
+  value:
+    | Monzo.Pot[]
+    | Monzo.Balance
+    | Monzo.Accounts.Account[]
+    | Monzo.Transactions.ExpandedTransaction<["merchant"]>[]
+) {
   if (!value) {
-    showToast({ style: Toast.Style.Animated, title: "Enable account access in the Monzo app to continue." });
+    showToast({
+      style: Toast.Style.Animated,
+      title: "Enable account access in the Monzo app to continue.",
+    });
     throw new Error("Could not contact Monzo");
   }
 }

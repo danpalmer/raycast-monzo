@@ -1,5 +1,5 @@
 import { useRef, FC } from "react";
-import { List, Icon, Color, Detail, ImageMask, Image } from "@raycast/api";
+import { List, Icon, Color, Image } from "@raycast/api";
 import { useCachedPromise, getAvatarIcon } from "@raycast/utils";
 import { Monzo } from "@marceloclp/monzojs";
 
@@ -118,7 +118,7 @@ const MerchantTransaction: FC<TransactionProps> = ({ transaction }) => {
 };
 
 const PotTransaction: FC<TransactionProps> = ({ transaction }) => {
-  let category = transaction.category as string;
+  const category = transaction.category as string;
 
   let name = "Pot transfer";
   if (category === "savings") {
@@ -159,7 +159,7 @@ const PotTransaction: FC<TransactionProps> = ({ transaction }) => {
 };
 
 const FasterPaymentsTransaction: FC<TransactionProps> = ({ transaction }) => {
-  let counterparty = transaction.counterparty as FasterPaymentsCounterparty;
+  const counterparty = transaction.counterparty as FasterPaymentsCounterparty;
   return (
     <List.Item
       title={counterparty.name}

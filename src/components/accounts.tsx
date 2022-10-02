@@ -23,40 +23,71 @@ export const AccountItem: FC<AccountProps> = ({ account, actions }) => {
 
 const AccountDetail: FC<AccountProps> = ({ account }) => {
   const abortable = useRef<AbortController>();
-  const { isLoading, data: balance } = useCachedPromise(getBalance, [account], { abortable });
+  const { isLoading, data: balance } = useCachedPromise(getBalance, [account], {
+    abortable,
+  });
 
   if (!balance) {
     return <List.Item.Detail isLoading={isLoading} />;
   }
 
   const formattedBalance = formatCurrency(balance.balance, balance.currency);
-  const formattedTotal = formatCurrency(balance.total_balance, balance.currency);
-  const formattedSpend = formatCurrency(Math.abs(balance.spend_today), balance.currency);
+  const formattedTotal = formatCurrency(
+    balance.total_balance,
+    balance.currency
+  );
+  const formattedSpend = formatCurrency(
+    Math.abs(balance.spend_today),
+    balance.currency
+  );
   const ownersTitle = account.owners.length == 1 ? "Owner" : "Owners";
   const ownersValue = account.owners.map((o) => o.preferred_name).join(", ");
 
-  const isUKRetailAccount = account.type == "uk_retail" || account.type == "uk_retail_joint";
+  const isUKRetailAccount =
+    account.type == "uk_retail" || account.type == "uk_retail_joint";
 
   return (
     <List.Item.Detail
       isLoading={isLoading}
       metadata={
         <List.Item.Detail.Metadata>
-          <List.Item.Detail.Metadata.Label title="Balance" text={formattedBalance} />
+          <List.Item.Detail.Metadata.Label
+            title="Balance"
+            text={formattedBalance}
+          />
           <List.Item.Detail.Metadata.Separator />
-          <List.Item.Detail.Metadata.Label title="Total including pots" text={formattedTotal} />
-          <List.Item.Detail.Metadata.Label title="Today's spend" text={formattedSpend} />
+          <List.Item.Detail.Metadata.Label
+            title="Total including pots"
+            text={formattedTotal}
+          />
+          <List.Item.Detail.Metadata.Label
+            title="Today's spend"
+            text={formattedSpend}
+          />
           {balance.local_currency && (
             <>
-              <List.Item.Detail.Metadata.Label title="Local currency" text={balance.local_currency} />
+              <List.Item.Detail.Metadata.Label
+                title="Local currency"
+                text={balance.local_currency}
+              />
               <List.Item.Detail.Metadata.Label
                 title="Exchange rate"
-                text={formatCurrency(balance.local_exchange_rate, balance.local_currency)}
+                text={formatCurrency(
+                  balance.local_exchange_rate,
+                  balance.local_currency
+                )}
               />
             </>
           )}
-          {isUKRetailAccount && <UKRetailAccountDetails account={account as Monzo.Accounts.RetailAccount} />}
-          <List.Item.Detail.Metadata.Label title={ownersTitle} text={ownersValue} />
+          {isUKRetailAccount && (
+            <UKRetailAccountDetails
+              account={account as Monzo.Accounts.RetailAccount}
+            />
+          )}
+          <List.Item.Detail.Metadata.Label
+            title={ownersTitle}
+            text={ownersValue}
+          />
         </List.Item.Detail.Metadata>
       }
     />
@@ -66,8 +97,14 @@ const AccountDetail: FC<AccountProps> = ({ account }) => {
 const UKRetailAccountDetails: FC<RetailAccountProps> = ({ account }) => {
   return (
     <>
-      <List.Item.Detail.Metadata.Label title="Account number" text={account.account_number} />
-      <List.Item.Detail.Metadata.Label title="Sort code" text={formatSortCode(account.sort_code)} />
+      <List.Item.Detail.Metadata.Label
+        title="Account number"
+        text={account.account_number}
+      />
+      <List.Item.Detail.Metadata.Label
+        title="Sort code"
+        text={formatSortCode(account.sort_code)}
+      />
     </>
   );
 };

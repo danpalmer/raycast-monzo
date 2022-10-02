@@ -17,7 +17,7 @@ const client = new OAuth.PKCEClient({
 });
 
 export async function getClient(): Promise<IMonzoClient> {
-  let tokenSet = await client.getTokens();
+  const tokenSet = await client.getTokens();
 
   // If no access token, auth and try again.
   if (!tokenSet || !tokenSet.accessToken) {
@@ -72,7 +72,9 @@ async function fetchTokens(
   return (await response.json()) as OAuth.TokenResponse;
 }
 
-async function refreshTokens(refreshToken: string): Promise<OAuth.TokenResponse> {
+async function refreshTokens(
+  refreshToken: string
+): Promise<OAuth.TokenResponse> {
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("refresh_token", refreshToken);

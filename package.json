@@ -12,8 +12,9 @@
   "commands": [
     {
       "name": "show_accounts",
-      "title": "Show accounts",
-      "description": "Monzo",
+      "title": "Show Accounts",
+      "subtitle": "Monzo",
+      "description": "View accounts, pots, and transactions on Monzo.",
       "mode": "view"
     }
   ],
