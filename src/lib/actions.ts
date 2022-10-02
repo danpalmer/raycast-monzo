@@ -25,11 +25,26 @@ export async function getPots(): Promise<AccountPots[]> {
   assertValue(accounts);
   accounts = accounts.filter((account) => !account.closed);
   const potsByAccount = await Promise.all(accounts.map((account) => client.getPots({ accountId: account.id })));
-  const x = potsByAccount.map((pots, idx) => {
+  return potsByAccount.map((pots, idx) => {
     pots = pots.filter((pot) => !pot.deleted);
     return { pots, account: accounts[idx] };
   });
-  return x.concat(x);
+}
+
+export async function getTransactions(
+  account: Monzo.Accounts.Account
+): Promise<Monzo.Transactions.ExpandedTransaction<["merchant"]>[]> {
+  const client = await getClient();
+  const ninetyDays = 1000 * 60 * 60 * 24 * 90;
+  const since = new Date(Date.now() - ninetyDays);
+  const transactions = await client.getTransactions({
+    accountId: account.id,
+    expand: ["merchant"],
+    since: since.toISOString(),
+  });
+  console.log(transactions);
+  assertValue(transactions);
+  return transactions.reverse();
 }
 
 interface AccountPots {
