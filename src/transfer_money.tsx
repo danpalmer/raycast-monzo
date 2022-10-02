@@ -18,7 +18,6 @@ export default function Command() {
   const [amount, setAmount] = useState<number>(0);
   const [source, setSource] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
-  const [execute, setExecute] = useState<boolean>(false);
   const [attemptToken, setAttemptToken] = useState<string>("");
 
   const { isLoading, data: accountPots } = useCachedPromise(
