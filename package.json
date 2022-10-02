@@ -15,12 +15,6 @@
       "title": "Show accounts",
       "description": "Monzo",
       "mode": "view"
-    },
-    {
-      "name": "show_pots",
-      "title": "Show pots",
-      "description": "Monzo",
-      "mode": "view"
     }
   ],
   "dependencies": {

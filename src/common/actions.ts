@@ -25,10 +25,11 @@ export async function getPots(): Promise<AccountPots[]> {
   assertValue(accounts);
   accounts = accounts.filter((account) => !account.closed);
   const potsByAccount = await Promise.all(accounts.map((account) => client.getPots({ accountId: account.id })));
-  return potsByAccount.map((pots, idx) => {
+  const x = potsByAccount.map((pots, idx) => {
     pots = pots.filter((pot) => !pot.deleted);
     return { pots, account: accounts[idx] };
   });
+  return x.concat(x);
 }
 
 interface AccountPots {
