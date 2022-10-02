@@ -4,7 +4,7 @@ import { useCachedPromise } from "@raycast/utils";
 import { Monzo } from "@marceloclp/monzojs";
 
 import { getPots, getBalance } from "./common/actions";
-import { formatCurrency, accountTitle } from "./common/formatting";
+import { formatCurrency, accountTitle, formatSortCode } from "./common/formatting";
 
 export default function Command() {
   const abortable = useRef<AbortController>();
@@ -86,7 +86,7 @@ const UKRetailAccountDetails: FC<RetailAccountProps> = ({ account }) => {
   return (
     <>
       <List.Item.Detail.Metadata.Label title="Account number" text={account.account_number} />
-      <List.Item.Detail.Metadata.Label title="Sort code" text={account.sort_code} />
+      <List.Item.Detail.Metadata.Label title="Sort code" text={formatSortCode(account.sort_code)} />
     </>
   );
 };
