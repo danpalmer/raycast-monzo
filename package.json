@@ -16,6 +16,13 @@
       "subtitle": "Monzo",
       "description": "View accounts, pots, and transactions on Monzo.",
       "mode": "view"
+    },
+    {
+      "name": "transfer_money",
+      "title": "Transfer Money",
+      "subtitle": "Monzo",
+      "description": "Transfer money between your own accounts and pots.",
+      "mode": "view"
     }
   ],
   "dependencies": {

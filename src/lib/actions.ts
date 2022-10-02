@@ -1,7 +1,8 @@
-import { showToast, Toast } from "@raycast/api";
+import { showToast, Toast, confirmAlert } from "@raycast/api";
 import { Monzo } from "@marceloclp/monzojs";
 
 import { getClient } from "./monzo";
+import { formatCurrency } from "./formatting";
 
 import "./fetch_patch";
 
@@ -43,7 +44,37 @@ export async function getTransactions(
   return transactions.reverse();
 }
 
-interface AccountPots {
+export async function transferMoney(
+  source: string,
+  destination: string,
+  amount: number,
+  attemptToken: string
+): Promise<boolean> {
+  const confirmed = await confirmAlert({
+    title: `Are you sure you want to transfer ${formatCurrency(amount, "GBP")}`,
+  });
+  const client = await getClient();
+
+  if (source.startsWith("pot_") && destination.startsWith("acc_")) {
+    await client.withdrawFromPot({
+      potId: source,
+      accountId: destination,
+      dedupeId: attemptToken,
+      amount,
+    });
+  } else if (source.startsWith("acc_") && destination.startsWith("pot_")) {
+    await client.depositIntoPot({
+      accountId: source,
+      potId: destination,
+      dedupeId: attemptToken,
+      amount,
+    });
+  }
+
+  return confirmed;
+}
+
+export interface AccountPots {
   account: Monzo.Accounts.Account;
   pots: Monzo.Pot[];
 }
