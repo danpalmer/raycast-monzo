@@ -1,18 +1,37 @@
 import { useRef } from "react";
-import { List, Action, ActionPanel } from "@raycast/api";
+import { List, Action, ActionPanel, Color, Icon } from "@raycast/api";
 import { useCachedPromise } from "@raycast/utils";
 
-import { getPots } from "./lib/actions";
+import { getAccountsAndPots } from "./lib/actions";
 import { accountTitle } from "./lib/formatting";
 import { PotItem } from "./components/pots";
 import { AccountItem } from "./components/accounts";
 import { TransactionsList } from "./components/transactions";
 
 export default function Command() {
-  const abortable = useRef<AbortController>();
-  const { isLoading, data: accountPots } = useCachedPromise(getPots, [], {
-    abortable,
-  });
+  const { isLoading, data: accountPots } = useCachedPromise(
+    getAccountsAndPots,
+    [],
+    {}
+  );
+
+  if (!accountPots) {
+    if (isLoading) {
+      // Loading or authenticating, not visible for long.
+      return null;
+    } else {
+      return (
+        <List>
+          <List.EmptyView
+            icon={{ source: Icon.Warning, tintColor: Color.Yellow }}
+            title="No Monzo access"
+            description="Open the Monzo app to allow Raycast to access your accounts."
+          />
+        </List>
+      );
+    }
+  }
+
   return (
     <List
       enableFiltering

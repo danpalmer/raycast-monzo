@@ -36,20 +36,24 @@ export async function getClient(): Promise<IMonzoClient> {
     throw new Error("No refresh token");
   }
 
-  return MonzoClient(tokenSet?.accessToken);
+  return MonzoClient(tokenSet.accessToken);
 }
 
 async function initAuth() {
+  console.log("Starting authentication");
   const authRequest = await client.authorizationRequest({
     endpoint: authorizeUrl,
     clientId: clientId,
     scope: "",
   });
-
+  console.log("Requesting authorization");
   const { authorizationCode } = await client.authorize(authRequest);
-
+  console.log("Received authorization");
+  console.log("Fetching tokens");
   const tokens = await fetchTokens(authRequest, authorizationCode);
+  console.log("Received tokens");
   await client.setTokens(tokens);
+  console.log("Persisted tokens");
 }
 
 async function fetchTokens(
@@ -66,7 +70,7 @@ async function fetchTokens(
     method: "POST",
   });
   if (!response.ok) {
-    console.error("fetch tokens error:", await response.text());
+    console.error("Error completing sign-in:", await response.text());
     throw new Error(response.statusText);
   }
   return (await response.json()) as OAuth.TokenResponse;
@@ -83,7 +87,7 @@ async function refreshTokens(
     method: "POST",
   });
   if (!response.ok) {
-    console.error("refresh tokens error:", await response.text());
+    console.error("Error refreshing access:", await response.text());
     throw new Error(response.statusText);
   }
   const tokenResponse = (await response.json()) as OAuth.TokenResponse;
