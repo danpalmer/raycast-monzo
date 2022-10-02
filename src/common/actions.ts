@@ -3,7 +3,7 @@ import { Monzo } from "@marceloclp/monzojs";
 
 import { getClient } from "./monzo";
 
-import "./fetch-patch";
+import "./fetch_patch";
 
 export async function getAccounts(): Promise<Monzo.Accounts.Account[]> {
   const client = await getClient();
@@ -17,19 +17,6 @@ export async function getBalance(account: Monzo.Accounts.Account): Promise<Monzo
   const balance = await client.getBalance({ accountId: account.id });
   assertValue(balance);
   return balance;
-}
-
-export function accountTitle(account: Monzo.Accounts.Account): string {
-  switch (account.type) {
-    case "uk_retail":
-      return "Current Account";
-    case "uk_retail_joint":
-      return "Joint Account";
-    case "uk_monzo_flex":
-      return "Monzo Flex";
-    case "uk_monzo_flex_backing_loan":
-      return "Monzo Flex";
-  }
 }
 
 function assertValue(value: any) {

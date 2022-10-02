@@ -3,7 +3,7 @@
   "name": "monzo",
   "title": "Monzo",
   "description": "View your Monzo bank account balance and recent transactions.",
-  "icon": "command-icon.png",
+  "icon": "monzo.png",
   "author": "danpalmer",
   "categories": [
     "Finance"
@@ -11,9 +11,9 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
+      "name": "show_accounts",
       "title": "Show accounts",
-      "description": "",
+      "description": "Monzo",
       "mode": "view"
     }
   ],

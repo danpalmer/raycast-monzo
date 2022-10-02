@@ -3,8 +3,8 @@ import { List } from "@raycast/api";
 import { useCachedPromise } from "@raycast/utils";
 import { Monzo } from "@marceloclp/monzojs";
 
-import { getAccounts, getBalance, accountTitle } from "./common/actions";
-import { formatCurrency } from "./common/formatting";
+import { getAccounts, getBalance } from "./common/actions";
+import { formatCurrency, accountTitle } from "./common/formatting";
 
 export default function Command() {
   const abortable = useRef<AbortController>();
@@ -13,9 +13,11 @@ export default function Command() {
   });
   return (
     <List enableFiltering={true} isLoading={isLoading} isShowingDetail>
-      {accounts?.map((account: Monzo.Accounts.Account) => (
-        <AccountItem account={account} />
-      ))}
+      <List.Section title="Accounts">
+        {accounts?.map((account: Monzo.Accounts.Account) => (
+          <AccountItem account={account} />
+        ))}
+      </List.Section>
     </List>
   );
 }
@@ -23,14 +25,7 @@ export default function Command() {
 type AccountProps = { account: Monzo.Accounts.Account };
 
 const AccountItem: FC<AccountProps> = ({ account }) => {
-  return (
-    <List.Item
-      icon="list-icon.png"
-      key={account.id}
-      title={accountTitle(account)}
-      detail={<AccountDetail account={account} />}
-    />
-  );
+  return <List.Item key={account.id} title={accountTitle(account)} detail={<AccountDetail account={account} />} />;
 };
 
 const AccountDetail: FC<AccountProps> = ({ account }) => {
