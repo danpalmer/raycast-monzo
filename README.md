@@ -1,3 +1,3 @@
 # Monzo
 
-View your Monzo bank account balance and recent transactions.
+View your Monzo accounts, pots, and recent transactions.
