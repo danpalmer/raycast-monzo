@@ -15,7 +15,7 @@ export default function Command() {
     <List enableFiltering={true} isLoading={isLoading} isShowingDetail>
       <List.Section title="Accounts">
         {accounts?.map((account: Monzo.Accounts.Account) => (
-          <AccountItem account={account} />
+          <AccountItem key={account.id} account={account} />
         ))}
       </List.Section>
     </List>
@@ -25,7 +25,7 @@ export default function Command() {
 type AccountProps = { account: Monzo.Accounts.Account };
 
 const AccountItem: FC<AccountProps> = ({ account }) => {
-  return <List.Item key={account.id} title={accountTitle(account)} detail={<AccountDetail account={account} />} />;
+  return <List.Item title={accountTitle(account)} detail={<AccountDetail account={account} />} />;
 };
 
 const AccountDetail: FC<AccountProps> = ({ account }) => {

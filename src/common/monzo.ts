@@ -12,7 +12,7 @@ const client = new OAuth.PKCEClient({
   redirectMethod: OAuth.RedirectMethod.Web,
   providerName: "Monzo",
   providerId: "monzo",
-  providerIcon: "command-icon.png",
+  providerIcon: "monzo.png",
   description: "Connect your Monzo account...",
 });
 

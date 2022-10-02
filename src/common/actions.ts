@@ -19,6 +19,24 @@ export async function getBalance(account: Monzo.Accounts.Account): Promise<Monzo
   return balance;
 }
 
+export async function getPots(): Promise<AccountPots[]> {
+  const client = await getClient();
+  let accounts = await client.getAccounts({});
+  accounts = accounts.filter((account) => !account.closed);
+
+  const potsByAccount = await Promise.all(accounts.map((account) => client.getPots({ accountId: account.id })));
+
+  return potsByAccount.map((pots, idx) => {
+    pots = pots.filter((pot) => !pot.deleted);
+    return { pots, account: accounts[idx] };
+  });
+}
+
+interface AccountPots {
+  account: Monzo.Accounts.Account;
+  pots: Monzo.Pot[];
+}
+
 function assertValue(value: any) {
   if (!value) {
     showToast({ style: Toast.Style.Animated, title: "Enable account access in the Monzo app to continue." });
