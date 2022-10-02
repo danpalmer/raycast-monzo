@@ -128,9 +128,6 @@ const PotTransaction: FC<TransactionProps> = ({ transaction }) => {
   }
 
   const isIFTTT = transaction.metadata["trigger"] == "ifttt";
-  if (transaction.amount < 0 && transaction.amount > -100) {
-    console.log(transaction);
-  }
 
   return (
     <List.Item
@@ -231,7 +228,6 @@ const P2PTransaction: FC<TransactionProps> = ({ transaction }) => {
 };
 
 const UnknownTransaction: FC<TransactionProps> = ({ transaction }) => {
-  console.log(JSON.stringify(transaction));
   const debugString = `
 ### Transaction could not be decoded.
 
