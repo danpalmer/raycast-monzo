@@ -163,21 +163,3 @@ function formatTargets(accountsAndPots: AccountPots[]): Target[] {
   }
   return targets;
 }
-
-function filterTargets(targets: Target[], chosen: string): Target[] {
-  if (!chosen) {
-    return targets;
-  }
-
-  const chosenTarget = targets.filter((t) => t.id == chosen)[0];
-  if (!chosenTarget) {
-    return [];
-  }
-
-  if (chosenTarget.isAccount) {
-    return targets.filter((t) => t.isPot);
-  } else if (chosenTarget.isPot) {
-    return targets.filter((t) => t.isAccount);
-  }
-  return [];
-}
