@@ -1,5 +1,5 @@
 import { useRef, FC } from "react";
-import { List, Icon } from "@raycast/api";
+import { List, Icon, Color } from "@raycast/api";
 import { useCachedPromise } from "@raycast/utils";
 import { Monzo } from "@marceloclp/monzojs";
 
@@ -31,7 +31,13 @@ type RetailAccountProps = { account: Monzo.Accounts.RetailAccount };
 
 const AccountItem: FC<AccountProps> = ({ account }) => {
   const icon = account.owners.length > 1 ? Icon.TwoPeople : Icon.Person;
-  return <List.Item title="Account" icon={icon} detail={<AccountDetail account={account} />} />;
+  return (
+    <List.Item
+      title="Account"
+      icon={{ tintColor: Color.Green, source: icon }}
+      detail={<AccountDetail account={account} />}
+    />
+  );
 };
 
 const AccountDetail: FC<AccountProps> = ({ account }) => {
@@ -87,7 +93,9 @@ const UKRetailAccountDetails: FC<RetailAccountProps> = ({ account }) => {
 
 const PotItem: FC<PotProps> = ({ pot }) => {
   const icon = pot.has_virtual_cards ? Icon.CreditCard : Icon.Coins;
-  return <List.Item title={pot.name} icon={icon} detail={<PotDetail pot={pot} />} />;
+  return (
+    <List.Item title={pot.name} icon={{ source: icon, tintColor: Color.Yellow }} detail={<PotDetail pot={pot} />} />
+  );
 };
 
 const PotDetail: FC<PotProps> = ({ pot }) => {
