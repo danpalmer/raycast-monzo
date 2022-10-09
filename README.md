@@ -49,4 +49,4 @@ That said, there are a few things to bear in mind:
 [raycast-oauth]: https://developers.raycast.com/api-reference/oauth
 
 [^1]: Monzo's authentication system doesn't support the newest OAuth mechanism – PKCE. For more details the opening paragraphs of the [Raycast developer documentation for OAuth](raycast-oauth)
-[^2]: Only the "code challenge" is stored, and only for 1 hour.
+[^2]: Only the "code challenge" is stored, and only for 1 hour, or until used, at which point it is immediately deleted.
