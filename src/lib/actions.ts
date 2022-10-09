@@ -65,6 +65,8 @@ export async function transferMoney(
   amount: number,
   attemptToken: string
 ): Promise<boolean> {
+  if (useTestData) return true;
+
   const confirmed = await confirmAlert({
     title: `Are you sure you want to transfer ${formatCurrency(amount, "GBP")}`,
   });
