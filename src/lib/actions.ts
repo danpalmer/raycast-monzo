@@ -37,7 +37,6 @@ export async function getBalance(
   const client = await getClient();
   const balance = await client.getBalance({ accountId: account.id });
   assertValue(balance);
-  console.log(balance);
   return balance;
 }
 
@@ -57,7 +56,6 @@ export async function getTransactions(
     since: since.toISOString(),
   });
   assertValue(transactions);
-  transactions.map(console.log);
   return transactions.reverse();
 }
 
