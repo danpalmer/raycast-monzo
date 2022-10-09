@@ -8,7 +8,7 @@ import {
   Color,
   showHUD,
 } from "@raycast/api";
-import { usePromise, useCachedPromise } from "@raycast/utils";
+import { usePromise } from "@raycast/utils";
 import { randomUUID } from "crypto";
 
 import { getAccountsAndPots, AccountPots, transferMoney } from "./lib/actions";
@@ -20,7 +20,7 @@ export default function Command() {
   const [destination, setDestination] = useState<string>("");
   const [attemptToken, setAttemptToken] = useState<string>("");
 
-  const { isLoading, data: accountPots } = useCachedPromise(
+  const { isLoading, data: accountPots } = usePromise(
     getAccountsAndPots,
     [],
     {}

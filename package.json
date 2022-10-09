@@ -27,7 +27,7 @@
   ],
   "preferences": [
     {
-      "name": "OAuth Client ID",
+      "name": "oauthClientId",
       "title": "OAuth Client ID",
       "description": "Identifier for your Monzo extension",
       "type": "textfield",
@@ -35,7 +35,7 @@
       "placeholder": "oauth2client_XYZ..."
     },
     {
-      "name": "OAuth Client Secret",
+      "name": "oauthClientSecret",
       "title": "OAuth Client Secret",
       "description": "Secret for your Monzo extension, do not share",
       "type": "textfield",
