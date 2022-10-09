@@ -14,7 +14,7 @@
       "name": "show_accounts",
       "title": "Show Accounts",
       "subtitle": "Monzo",
-      "description": "View accounts, pots, and transactions on Monzo.",
+      "description": "View accounts, pots, and transactions on Monzo.\n\nThis extension requires a few setup steps, read the documentation for a full walkthrough.",
       "mode": "view"
     },
     {
@@ -23,6 +23,24 @@
       "subtitle": "Monzo",
       "description": "Transfer money between your own accounts and pots.",
       "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "OAuth Client ID",
+      "title": "OAuth Client ID",
+      "description": "Identifier for your Monzo extension",
+      "type": "textfield",
+      "required": true,
+      "placeholder": "oauth2client_XYZ..."
+    },
+    {
+      "name": "OAuth Client Secret",
+      "title": "OAuth Client Secret",
+      "description": "Secret for your Monzo extension, do not share",
+      "type": "textfield",
+      "required": true,
+      "placeholder": "mnzconf..."
     }
   ],
   "dependencies": {
