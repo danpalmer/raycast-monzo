@@ -3,10 +3,17 @@ import { Monzo } from "@marceloclp/monzojs";
 
 import { getClient } from "./monzo";
 import { formatCurrency } from "./formatting";
+import { testData } from "./test_data";
 
 import "./fetch_patch";
 
+const useTestData = false;
+
 export async function getAccountsAndPots(): Promise<AccountPots[]> {
+  if (useTestData) {
+    return testData.potsByAccount;
+  }
+
   const client = await getClient();
   let accounts = await client.getAccounts({});
   assertValue(accounts);
@@ -23,15 +30,24 @@ export async function getAccountsAndPots(): Promise<AccountPots[]> {
 export async function getBalance(
   account: Monzo.Accounts.Account
 ): Promise<Monzo.Balance> {
+  if (useTestData) {
+    return testData.balance;
+  }
+
   const client = await getClient();
   const balance = await client.getBalance({ accountId: account.id });
   assertValue(balance);
+  console.log(balance);
   return balance;
 }
 
 export async function getTransactions(
   account: Monzo.Accounts.Account
 ): Promise<Monzo.Transactions.ExpandedTransaction<["merchant"]>[]> {
+  if (useTestData) {
+    return testData.transactions;
+  }
+
   const client = await getClient();
   const ninetyDays = 1000 * 60 * 60 * 24 * 90;
   const since = new Date(Date.now() - ninetyDays);
@@ -41,6 +57,7 @@ export async function getTransactions(
     since: since.toISOString(),
   });
   assertValue(transactions);
+  transactions.map(console.log);
   return transactions.reverse();
 }
 

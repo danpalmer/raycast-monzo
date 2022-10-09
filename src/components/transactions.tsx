@@ -1,6 +1,6 @@
 import { useRef, FC } from "react";
 import { List, Icon, Color, Image } from "@raycast/api";
-import { useCachedPromise, getAvatarIcon } from "@raycast/utils";
+import { usePromise, getAvatarIcon } from "@raycast/utils";
 import { Monzo } from "@marceloclp/monzojs";
 
 import { getTransactions } from "../lib/actions";
@@ -21,7 +21,7 @@ type TransactionProps = {
 
 export const TransactionsList: FC<AccountProps> = ({ account }) => {
   const abortable = useRef<AbortController>();
-  const { isLoading, data: transactions } = useCachedPromise(
+  const { isLoading, data: transactions } = usePromise(
     getTransactions,
     [account],
     { abortable }
