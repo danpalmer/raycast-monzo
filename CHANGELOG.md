@@ -4,6 +4,7 @@
 
 - Fixed case when currency could be missing.
 - Update README.
+- Tweak commands for consistency.
 
 ## [Fix] - 2023-03-16
 
