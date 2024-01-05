@@ -3,7 +3,7 @@
   "name": "monzo",
   "title": "Monzo",
   "description": "View your Monzo bank account balance and recent transactions.",
-  "icon": "command-icon.png",
+  "icon": "monzo.png",
   "author": "danpalmer",
   "categories": [
     "Finance"
@@ -11,10 +11,36 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
-      "title": "Show accounts",
-      "description": "",
+      "name": "show_accounts",
+      "title": "Show Accounts",
+      "subtitle": "Monzo",
+      "description": "View accounts, pots, and transactions on Monzo.\n\nThis extension requires a few setup steps, read the documentation for a full walkthrough.",
       "mode": "view"
+    },
+    {
+      "name": "transfer_money",
+      "title": "Transfer Money",
+      "subtitle": "Monzo",
+      "description": "Transfer money between your own accounts and pots.",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "oauthClientId",
+      "title": "OAuth Client ID",
+      "description": "Identifier for your Monzo extension",
+      "type": "textfield",
+      "required": true,
+      "placeholder": "oauth2client_XYZ..."
+    },
+    {
+      "name": "oauthClientSecret",
+      "title": "OAuth Client Secret",
+      "description": "Secret for your Monzo extension, do not share",
+      "type": "password",
+      "required": true,
+      "placeholder": "mnzconf..."
     }
   ],
   "dependencies": {
