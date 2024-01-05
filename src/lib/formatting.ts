@@ -5,7 +5,7 @@ export function formatCurrency(value: number, currency: string): string {
   const denominator = currency == "JPY" ? 1 : 100;
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: currency,
+    currency: currency || "GBP",
   }).format(value / denominator);
 }
 
