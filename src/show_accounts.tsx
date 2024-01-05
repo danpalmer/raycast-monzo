@@ -19,7 +19,7 @@ export default function Command() {
 
   return (
     <List
-      enableFiltering
+      filtering={true}
       isLoading={isLoading}
       searchBarPlaceholder="Search accounts and pots"
       isShowingDetail={!showNoAccess}
